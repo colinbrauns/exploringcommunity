@@ -20,7 +20,7 @@ jobs:
 
       - name: Install theme deps
         working-directory: theme/exploringcommunity
-        run: npm ci || npm install
+        run: npm ci --include=dev
 
       - name: Validate theme (gscan)
         working-directory: theme/exploringcommunity
@@ -28,7 +28,7 @@ jobs:
 
       - name: Zip theme
         working-directory: theme/exploringcommunity
-        run: zip -r exploringcommunity.zip . -x 'node_modules/*' -x '.git/*' -x 'package-lock.json'
+        run: npm run zip
 
       - name: Upload theme to Ghost
         env:
@@ -40,5 +40,5 @@ jobs:
             --api-url "$GHOST_ADMIN_API_URL" \
             --admin-api-key "$GHOST_ADMIN_API_KEY" \
             --activate \
-            theme/exploringcommunity/exploringcommunity.zip
+            theme/exploringcommunity.zip
 
