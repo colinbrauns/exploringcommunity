@@ -3,19 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "description": "A clean, accessible Ghost theme for ExploringCommunity",
-  "author": "ExploringCommunity",
+  "author": {
+    "name": "ExploringCommunity",
+    "email": "hello@exploringcommunity.com",
+    "url": "https://exploringcommunity.com"
+  },
+  "keywords": [
+    "ghost-theme",
+    "community",
+    "blog"
+  ],
   "license": "MIT",
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "ghost": ">=5.0.0"
   },
   "scripts": {
-    "test": "gscan .",
-    "zip": "npm run clean-zip && zip -r ../exploringcommunity.zip . -x 'node_modules/*' -x '.git/*' -x 'package-lock.json'",
-    "clean-zip": "rm -f ../exploringcommunity.zip || powershell -Command \"if(Test-Path ..\\exploringcommunity.zip){Remove-Item ..\\exploringcommunity.zip}\"",
+    "test": "npx gscan .",
+    "zip": "node scripts/zip-theme.js",
+    "clean-zip": "node -e \"const fs=require('fs');try{fs.unlinkSync('../exploringcommunity.zip')}catch(e){}\"",
     "postinstall": "echo 'Install theme deps (if any). No build step required.'"
   },
   "devDependencies": {
+    "archiver": "^6.0.2",
     "gscan": "^5.0.0"
-  }
+  },
+  "config": {
+    "posts_per_page": 10
+  },
+  "card_assets": true
 }
 

@@ -1,7 +1,32 @@
 {{!< default}}
 
-<article class="page">
-  <h1>{{title}}</h1>
-  {{content}}
+<article class="page {{post_class}}">
+  <header>
+    {{#if @page.show_title_and_feature_image}}
+      <h1>{{title}}</h1>
+    {{/if}}
+    {{#if custom_excerpt}}
+      <p class="excerpt">{{custom_excerpt}}</p>
+    {{/if}}
+    <div class="meta">
+      {{#if primary_author}}By {{primary_author.name}}{{/if}}
+      {{#if published_at}} • {{date published_at format="MMM D, YYYY"}}{{/if}}
+      {{#if updated_at}} • Updated {{date updated_at format="MMM D, YYYY"}}{{/if}}
+    </div>
+    {{#if @page.show_title_and_feature_image}}
+      {{#if feature_image}}
+        <figure class="kg-width-wide">
+          <img src="{{feature_image}}" alt="{{title}}" style="max-width:100%;border-radius:12px;"/>
+          {{#if feature_image_caption}}<figcaption>{{feature_image_caption}}</figcaption>{{/if}}
+        </figure>
+      {{/if}}
+    {{/if}}
+  </header>
+  <section class="content">
+    {{content}}
+  </section>
+  {{#if tags}}
+    <footer class="meta">{{tags separator=", "}}</footer>
+  {{/if}}
 </article>
 
