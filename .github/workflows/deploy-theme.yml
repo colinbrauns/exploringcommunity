@@ -1,0 +1,44 @@
+name: Deploy Ghost Theme
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'theme/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install theme deps
+        working-directory: theme/exploringcommunity
+        run: npm ci || npm install
+
+      - name: Validate theme (gscan)
+        working-directory: theme/exploringcommunity
+        run: npx gscan .
+
+      - name: Zip theme
+        working-directory: theme/exploringcommunity
+        run: zip -r exploringcommunity.zip . -x 'node_modules/*' -x '.git/*' -x 'package-lock.json'
+
+      - name: Upload theme to Ghost
+        env:
+          GHOST_ADMIN_API_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          GHOST_ADMIN_API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+        run: |
+          npm i -g ghost-theme-uploader@1
+          ghost-theme-uploader \
+            --api-url "$GHOST_ADMIN_API_URL" \
+            --admin-api-key "$GHOST_ADMIN_API_KEY" \
+            --activate \
+            theme/exploringcommunity/exploringcommunity.zip
+

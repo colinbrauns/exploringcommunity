@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  ghost:
+    image: ghost:5
+    restart: unless-stopped
+    ports:
+      - "2368:2368"
+    environment:
+      url: https://exploringcommunity.com
+      database__client: sqlite3
+      NODE_ENV: production
+    volumes:
+      - ghost_content:/var/lib/ghost/content
+volumes:
+  ghost_content:
+

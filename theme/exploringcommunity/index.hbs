@@ -1,0 +1,19 @@
+{{!< default}}
+
+<section class="hero">
+  <h1>Exploring the practice of community building</h1>
+  <p>Stories, frameworks, and field notes on creating and nurturing real-life communities.</p>
+</section>
+
+<section aria-label="Latest posts" class="post-card-grid">
+  {{#foreach posts}}
+    <article class="post-card">
+      <h3><a href="{{url}}">{{title}}</a></h3>
+      <div class="meta">{{date format="MMM D, YYYY"}} • {{#if primary_tag}}{{primary_tag.name}}{{/if}}</div>
+      {{#if excerpt}}
+        <p>{{excerpt}}</p>
+      {{/if}}
+    </article>
+  {{/foreach}}
+</section>
+

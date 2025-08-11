@@ -1,0 +1,11 @@
+{{!< default}}
+
+<article class="post">
+  <h1>{{title}}</h1>
+  <div class="meta">{{date format="MMM D, YYYY"}} {{#if primary_author}}• by {{primary_author.name}}{{/if}}</div>
+  {{#if feature_image}}
+    <p><img src="{{feature_image}}" alt="" style="max-width:100%;border-radius:12px;"/></p>
+  {{/if}}
+  {{content}}
+</article>
+
