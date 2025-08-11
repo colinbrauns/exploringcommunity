@@ -15,7 +15,7 @@
     "postinstall": "echo 'Install theme deps (if any). No build step required.'"
   },
   "devDependencies": {
-    "gscan": "^5.4.3"
+    "gscan": "^5.0.0"
   }
 }
 
